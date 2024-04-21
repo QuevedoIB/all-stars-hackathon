@@ -44,7 +44,7 @@
     "moduleResolution": "Node",
     "types": ["vite/client"]
   },
-  "include": ["src"],
+  "include": ["src/**/*"],
   "references": [
     {
       "path": "./tsconfig.node.json"
