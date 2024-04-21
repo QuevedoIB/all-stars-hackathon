@@ -1,5 +1,5 @@
 {
-  "name": "threejs-journey-exercise",
+  "name": "hackathon-playground",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,17 +8,16 @@
     "build": "vite build"
   },
   "devDependencies": {
+    "@types/babel__core": "^7.20.5",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.25",
     "@vitejs/plugin-react": "4.1",
     "vite": "^4.5.0"
   },
   "dependencies": {
-    "@react-three/drei": "9.88",
-    "@react-three/fiber": "8.15",
-    "leva": "^0.9.35",
-    "r3f-perf": "7.1",
+    "framer-motion": "^11.1.7",
     "react": "18.2",
     "react-dom": "18.2",
-    "three": "^0.158.0",
-    "vite-plugin-glsl": "1.1.2"
+    "typescript": "^5.4.5"
   }
 }

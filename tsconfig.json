@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["src/*"],
+      "~/*": ["*"]
+    },
+    "baseUrl": "./",
+    "isolatedModules": true,
+    "noEmit": true,
+    "allowJs": true,
+    "inlineSourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "resolveJsonModule": true,
+    "noFallthroughCasesInSwitch": true,
+    "traceResolution": false,
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "pretty": true,
+    "skipLibCheck": true,
+    "lib": [
+      "es5",
+      "es6",
+      "es7",
+      "es2017",
+      "es2019",
+      "dom",
+      "ES2021.String",
+      "ES2023"
+    ],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "types": ["vite/client"]
+  },
+  "include": ["src"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}
