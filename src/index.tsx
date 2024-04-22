@@ -1,15 +1,12 @@
 import "./style.css";
 
 import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router-dom";
 
-import FeedList from "@/components/lists/FeedList";
+import router from "@/router";
 
 const App = () => {
-  return (
-    <main className="min-h-screen h-full mx-auto bg-gameSwipe-neutral">
-      <FeedList />
-    </main>
-  );
+  return <RouterProvider router={router} />;
 };
 
 createRoot(document.getElementById("root") as HTMLElement).render(<App />);
