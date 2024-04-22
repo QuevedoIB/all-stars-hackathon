@@ -46,9 +46,9 @@ const FeedList = () => {
   const [cardDrivenProps, setCardDrivenProps] = useState(initialDrivenProps);
   const [isDragging, setIsDragging] = useState(false);
 
-  const handleActionBtnOnClick = (btn: DirectionType) => {
-    setDirection(btn);
-  };
+  // const handleActionBtnOnClick = (btn: DirectionType) => {
+  //   setDirection(btn);
+  // };
 
   useEffect(() => {
     if (["left", "right"].includes(direction)) {
@@ -86,7 +86,7 @@ const FeedList = () => {
 
   return (
     <motion.div
-      className={`flex p-5 min-h-screen h-full flex-col justify-center items-center overflow-hidden  ${
+      className={`flex flex-1 p-5 flex-col justify-center items-center overflow-hidden  ${
         isDragging ? "cursor-grabbing" : ""
       }`}
       style={{ backgroundColor: cardDrivenProps.mainBgColor }}
@@ -130,7 +130,7 @@ const FeedList = () => {
             })}
           </AnimatePresence>
         </div>
-        <div
+        {/* <div
           id="actions"
           className="flex items-center justify-center w-full  gap-4 relative z-10"
         >
@@ -148,7 +148,7 @@ const FeedList = () => {
             isDragOffBoundary={isDragOffBoundary}
             onClick={() => handleActionBtnOnClick("right")}
           />
-        </div>
+        </div> */}
       </div>
     </motion.div>
   );

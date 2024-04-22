@@ -3,7 +3,7 @@ import NavBar from "@/components/common/NavBar";
 
 const Container = () => {
   return (
-    <main className="min-h-screen h-full mx-auto bg-gameSwipe-neutral">
+    <main className="min-h-screen h-full mx-auto flex flex-col bg-gameSwipe-neutral">
       <NavBar />
       <Outlet />
     </main>
