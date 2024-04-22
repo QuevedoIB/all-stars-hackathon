@@ -24,8 +24,17 @@ export interface IFeedItem {
 const cards: IFeedItem[] = [
   {
     id: "sample-id",
-    imageSrc:
-      "https://static9.depositphotos.com/1431107/1154/i/950/depositphotos_11542091-stock-photo-sample-stamp.jpg",
+    imageSrc: "https://dummyimage.com/400x400/000/fff&text=Sample",
+    imageCaption: "Sample bird image",
+  },
+  {
+    id: "sample-id2",
+    imageSrc: "https://dummyimage.com/400x400/cf1dcf/fff&text=Sample+2",
+    imageCaption: "Sample image",
+  },
+  {
+    id: "sample-id3",
+    imageSrc: "https://dummyimage.com/400x400/12cc25/fff&text=Sample+3",
     imageCaption: "Sample image",
   },
 ];
@@ -49,6 +58,12 @@ const FeedList = () => {
   }, [direction]);
 
   const cardVariants = {
+    current: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.3, ease: easeOutExpo },
+    },
     upcoming: {
       opacity: 0.5,
       y: 67,
@@ -88,6 +103,7 @@ const FeedList = () => {
         >
           <AnimatePresence>
             {cards.map((card, i) => {
+              const isLast = i === cards.length - 1;
               const isUpcoming = i === cards.length - 2;
               return (
                 <motion.div
@@ -96,7 +112,9 @@ const FeedList = () => {
                   className={`relative `}
                   variants={cardVariants}
                   initial="remainings"
-                  animate={isUpcoming ? "upcoming" : "remainings"}
+                  animate={
+                    isLast ? "current" : isUpcoming ? "upcoming" : "remainings"
+                  }
                   exit="exit"
                 >
                   <FeedCard

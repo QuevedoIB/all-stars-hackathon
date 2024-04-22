@@ -1,7 +1,7 @@
 import { useState, Dispatch, SetStateAction } from "react";
 
-import { Player } from "@lottiefiles/react-lottie-player";
-import lottieJson from "@/assets/animations/lottie.json";
+// import { Player } from "@lottiefiles/react-lottie-player";
+// import lottieJson from "@/assets/animations/lottie.json";
 import { useMediaQuery } from "usehooks-ts";
 
 import {
@@ -16,7 +16,7 @@ import { themeColors } from "@/core/theme";
 import { IFeedItem } from "@/components/lists/FeedList";
 
 type Props = {
-  id?: number;
+  id?: string;
   data: IFeedItem;
   setCardDrivenProps: Dispatch<SetStateAction<any>>;
   setIsDragging: Dispatch<SetStateAction<any>>;
@@ -101,7 +101,7 @@ const FeedCard = ({
             id="imgPlaceholder"
             className="bg-gameSwipe-neutral absolute object-cover w-full h-full"
             style={{
-              maskImage: `url('/')`,
+              maskImage: `url('/images/placeholder.png')`,
               WebkitMaskImage: `url(/images/placeholder.png)`,
               maskSize: "contain",
               WebkitMaskSize: "contain",
@@ -115,15 +115,7 @@ const FeedCard = ({
             } duration-500 ease-out`}
             src={imageSrc}
             sizes={`(max-width: 768px) 100vw, 250px`}
-            alt="car"
-            style={{
-              maskImage: `url('/images/placeholder.png')`,
-              WebkitMaskImage: `url(/images/placeholder.png)`,
-              maskSize: "contain",
-              WebkitMaskSize: "contain",
-              maskRepeat: "no-repeat",
-              WebkitMaskRepeat: "no-repeat",
-            }}
+            alt="feed-outfit"
             onLoad={(img) => setImgLoadingComplete(true)}
           />
         </div>

@@ -8,13 +8,13 @@ const actionPropsMatrix = {
   left: {
     ariaLabel: "Swipe Left",
     bgColorClass: "bg-answerBad-500",
-    icon: IconCross,
+    icon: IconCross as React.ElementType,
     iconBaseColorClass: "text-[#701823]",
   },
   right: {
     ariaLabel: "Swipe Right",
     bgColorClass: "bg-answerGood-500",
-    icon: IconConfirm,
+    icon: IconConfirm as React.ElementType,
     iconBaseColorClass: "text-[#2C5B10]",
   },
 };
@@ -27,7 +27,7 @@ type Props = {
   onClick: () => void;
 };
 
-const GameActionBtn = ({
+const FeedCardButton = ({
   scale,
   direction,
   isDragOffBoundary = null,
@@ -53,4 +53,4 @@ const GameActionBtn = ({
   );
 };
 
-export default GameActionBtn;
+export default FeedCardButton;
