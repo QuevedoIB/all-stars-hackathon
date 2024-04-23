@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import Background from "@/components/common/Background";
 import { themeColors, easeOutExpo } from "@/core/theme";
-import FeedCardButton from "@/components/buttons/FeedCardButton";
+// import FeedCardButton from "@/components/buttons/FeedCardButton";
 import FeedCard from "@/components/cards/FeedCard";
 import { DirectionType } from "@/types/common";
+import CreateFeed from "@/components/buttons/CreateFeed";
 
 const initialDrivenProps = {
   cardWrapperX: 0,
@@ -85,52 +86,57 @@ const FeedList = () => {
   };
 
   return (
-    <motion.div
-      className={`flex flex-1 p-5 flex-col justify-center items-center overflow-hidden  ${
-        isDragging ? "cursor-grabbing" : ""
-      }`}
-      style={{ backgroundColor: cardDrivenProps.mainBgColor }}
-    >
-      <Background />
-
-      <div
-        id="gameUIWrapper"
-        className="flex flex-col gap-6 w-full items-center justify-center relative z-10"
+    <>
+      <motion.div
+        className={`flex flex-1 p-5 flex-col justify-center items-center overflow-hidden  ${
+          isDragging ? "cursor-grabbing" : ""
+        }`}
+        style={{ backgroundColor: cardDrivenProps.mainBgColor }}
       >
+        <Background />
+
         <div
-          id="cardsWrapper"
-          className="w-full aspect-[100/150] max-w-xs mb-[20px] relative z-10"
+          id="gameUIWrapper"
+          className="flex flex-col gap-6 w-full items-center justify-center relative z-10"
         >
-          <AnimatePresence>
-            {cards.map((card, i) => {
-              const isLast = i === cards.length - 1;
-              const isUpcoming = i === cards.length - 2;
-              return (
-                <motion.div
-                  key={`card-${i}`}
-                  id={`card-${card.id}`}
-                  className={`relative `}
-                  variants={cardVariants}
-                  initial="remainings"
-                  animate={
-                    isLast ? "current" : isUpcoming ? "upcoming" : "remainings"
-                  }
-                  exit="exit"
-                >
-                  <FeedCard
-                    data={card}
-                    id={card.id}
-                    setCardDrivenProps={setCardDrivenProps}
-                    setIsDragging={setIsDragging}
-                    isDragging={isDragging}
-                    setIsDragOffBoundary={setIsDragOffBoundary}
-                  />
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </div>
-        {/* <div
+          <div
+            id="cardsWrapper"
+            className="w-full aspect-[100/150] max-w-xs mb-[20px] relative z-10"
+          >
+            <AnimatePresence>
+              {cards.map((card, i) => {
+                const isLast = i === cards.length - 1;
+                const isUpcoming = i === cards.length - 2;
+                return (
+                  <motion.div
+                    key={`card-${i}`}
+                    id={`card-${card.id}`}
+                    className={`relative `}
+                    variants={cardVariants}
+                    initial="remainings"
+                    animate={
+                      isLast
+                        ? "current"
+                        : isUpcoming
+                        ? "upcoming"
+                        : "remainings"
+                    }
+                    exit="exit"
+                  >
+                    <FeedCard
+                      data={card}
+                      id={card.id}
+                      setCardDrivenProps={setCardDrivenProps}
+                      setIsDragging={setIsDragging}
+                      isDragging={isDragging}
+                      setIsDragOffBoundary={setIsDragOffBoundary}
+                    />
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          </div>
+          {/* <div
           id="actions"
           className="flex items-center justify-center w-full  gap-4 relative z-10"
         >
@@ -149,8 +155,10 @@ const FeedList = () => {
             onClick={() => handleActionBtnOnClick("right")}
           />
         </div> */}
-      </div>
-    </motion.div>
+        </div>
+      </motion.div>
+      <CreateFeed />
+    </>
   );
 };
 
