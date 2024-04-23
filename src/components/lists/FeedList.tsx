@@ -7,7 +7,7 @@ import { themeColors, easeOutExpo } from "@/core/theme";
 // import FeedCardButton from "@/components/buttons/FeedCardButton";
 import FeedCard from "@/components/cards/FeedCard";
 import { DirectionType } from "@/types/common";
-import CreateFeed from "@/components/buttons/CreateFeed";
+import CreateFeed from "@/components/buttons/CreateFeedButton";
 
 const initialDrivenProps = {
   cardWrapperX: 0,
