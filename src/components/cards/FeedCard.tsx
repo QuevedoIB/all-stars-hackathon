@@ -1,7 +1,5 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { useState, Dispatch, SetStateAction, useContext } from "react";
 
-// import { Player } from "@lottiefiles/react-lottie-player";
-// import lottieJson from "@/assets/animations/lottie.json";
 import { useMediaQuery } from "usehooks-ts";
 
 import {
@@ -13,7 +11,7 @@ import {
 
 import { themeColors } from "@/core/theme";
 
-import { IFeedItem } from "@/components/lists/FeedList";
+import { AppContext, IFeedItem } from "@/core/AppContext";
 
 type Props = {
   id?: string;
@@ -33,10 +31,9 @@ const FeedCard = ({
   setIsDragOffBoundary,
 }: Props) => {
   const [imgLoadingComplete, setImgLoadingComplete] = useState(false);
+  const { handleNextFeed } = useContext(AppContext);
 
-  console.log({ data, imgLoadingComplete });
-
-  const { imageCaption, imageSrc } = data;
+  const { caption, imageSrc } = data;
   const x = useMotionValue(0);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
@@ -68,7 +65,6 @@ const FeedCard = ({
     inputX,
     outputActionScaleRightAnswer
   );
-  // let drivenBg = useTransform(x, inputX, outputMainBgColor);
   let drivenBg = useTransform(x, [-20, 0, 20], outputMainBgColor);
 
   useMotionValueEvent(x, "change", (latest) => {
@@ -120,7 +116,7 @@ const FeedCard = ({
           />
         </div>
         <p id="affirmation" className="mt-2 text-[20px] leading-tight">
-          {imageCaption}
+          {caption}
         </p>
       </motion.div>
 
@@ -154,10 +150,7 @@ const FeedCard = ({
           const direction = info.offset.x > 0 ? "right" : "left";
 
           if (isOffBoundary) {
-            // setGame({
-            //   ...game,
-            //   cards: game.cards.slice(0, -1),
-            // });
+            handleNextFeed();
           }
         }}
         style={{ x }}

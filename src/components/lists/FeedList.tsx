@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -8,6 +8,7 @@ import { themeColors, easeOutExpo } from "@/core/theme";
 import FeedCard from "@/components/cards/FeedCard";
 import { DirectionType } from "@/types/common";
 import CreateFeed from "@/components/buttons/CreateFeedButton";
+import { AppContext } from "@/core/AppContext";
 
 const initialDrivenProps = {
   cardWrapperX: 0,
@@ -16,31 +17,8 @@ const initialDrivenProps = {
   mainBgColor: themeColors.gameSwipe.neutral,
 };
 
-export interface IFeedItem {
-  id: string;
-  imageSrc: string;
-  imageCaption: string;
-}
-
-const cards: IFeedItem[] = [
-  {
-    id: "sample-id",
-    imageSrc: "https://dummyimage.com/400x400/000/fff&text=Sample",
-    imageCaption: "Sample bird image",
-  },
-  {
-    id: "sample-id2",
-    imageSrc: "https://dummyimage.com/400x400/cf1dcf/fff&text=Sample+2",
-    imageCaption: "Sample image",
-  },
-  {
-    id: "sample-id3",
-    imageSrc: "https://dummyimage.com/400x400/12cc25/fff&text=Sample+3",
-    imageCaption: "Sample image",
-  },
-];
-
 const FeedList = () => {
+  const { feed } = useContext(AppContext);
   const [direction, setDirection] = useState<DirectionType | "">("");
   const [isDragOffBoundary, setIsDragOffBoundary] =
     useState<DirectionType | null>(null);
@@ -104,13 +82,13 @@ const FeedList = () => {
             className="w-full aspect-[100/150] max-w-xs mb-[20px] relative z-10"
           >
             <AnimatePresence>
-              {cards.map((card, i) => {
-                const isLast = i === cards.length - 1;
-                const isUpcoming = i === cards.length - 2;
+              {feed.map((item, i) => {
+                const isLast = i === feed.length - 1;
+                const isUpcoming = i === feed.length - 2;
                 return (
                   <motion.div
                     key={`card-${i}`}
-                    id={`card-${card.id}`}
+                    id={`card-${item.id}`}
                     className={`relative `}
                     variants={cardVariants}
                     initial="remainings"
@@ -124,8 +102,8 @@ const FeedList = () => {
                     exit="exit"
                   >
                     <FeedCard
-                      data={card}
-                      id={card.id}
+                      data={item}
+                      id={item.id}
                       setCardDrivenProps={setCardDrivenProps}
                       setIsDragging={setIsDragging}
                       isDragging={isDragging}
