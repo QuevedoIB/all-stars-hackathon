@@ -1,0 +1,5 @@
+.background--container {
+  background-color: #93c5fd;
+  -webkit-mask-image: url("/images/background.svg");
+  mask-image: url("/images/background.svg");
+}

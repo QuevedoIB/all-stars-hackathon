@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { motion, AnimatePresence } from "framer-motion";
 
-import Background from "@/components/common/Background";
+import Background from "@/components/common/Background/Background";
 import { themeColors, easeOutExpo } from "@/core/theme";
 // import FeedCardButton from "@/components/buttons/FeedCardButton";
 import FeedCard from "@/components/cards/FeedCard";

@@ -8,10 +8,10 @@ import { Link } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <nav className="bg-white w-full flex relative justify-between items-center mx-auto px-8 h-20">
+    <nav className="bg-white w-full flex relative justify-between items-center mx-auto px-8 h-20 z-50">
       <div className="inline-flex items-center">
         <button type="button" className="pr-4">
-          <IconHamburger className="h-4 w-4" />
+          <IconHamburger />
         </button>
 
         <Link to="/">
