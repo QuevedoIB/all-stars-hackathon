@@ -15,66 +15,47 @@ import { AppContext, IFeedItem } from "@/core/AppContext";
 import useToggle from "@/hooks/useToggle";
 
 type Props = {
-  id?: string;
   data: IFeedItem;
-  setCardDrivenProps: Dispatch<SetStateAction<any>>;
-  setIsDragging: Dispatch<SetStateAction<any>>;
+  setBackgroundColor: Dispatch<SetStateAction<string>>;
+  setIsDragging: Dispatch<SetStateAction<boolean>>;
+  setDirection: Dispatch<SetStateAction<string>>;
   isDragging: boolean;
 };
 
+const offsetBoundary = 150;
+
+const inputX = [offsetBoundary * -1, 0, offsetBoundary];
+const outputX = [-200, 0, 200];
+const outputY = [50, 0, 50];
+const outputRotate = [-40, 0, 40];
+const outputMainBgColor = [
+  themeColors.gameSwipe.left,
+  themeColors.gameSwipe.neutral,
+  themeColors.gameSwipe.right,
+];
+
 const FeedCard = ({
-  id,
-  data,
-  setCardDrivenProps,
+  data: { caption, imageSrc },
+  setBackgroundColor,
   setIsDragging,
+  setDirection,
   isDragging,
 }: Props) => {
   const [isImgLoaded, toggleImgLoaded] = useToggle();
   const { handleNextFeed } = useContext(AppContext);
 
-  const { caption, imageSrc } = data;
   const x = useMotionValue(0);
 
   const isMobile = useMediaQuery("(max-width: 768px)");
 
-  const offsetBoundary = 150;
-
-  const inputX = [offsetBoundary * -1, 0, offsetBoundary];
-  const outputX = [-200, 0, 200];
-  const outputY = [50, 0, 50];
-  const outputRotate = [-40, 0, 40];
-  const outputActionScaleBadAnswer = [3, 1, 0.3];
-  const outputActionScaleRightAnswer = [0.3, 1, 3];
-  const outputMainBgColor = [
-    themeColors.gameSwipe.left,
-    themeColors.gameSwipe.neutral,
-    themeColors.gameSwipe.right,
-  ];
-
   let drivenX = useTransform(x, inputX, outputX);
   let drivenY = useTransform(x, inputX, outputY);
   let drivenRotation = useTransform(x, inputX, outputRotate);
-  let drivenActionLeftScale = useTransform(
-    x,
-    inputX,
-    outputActionScaleBadAnswer
-  );
-  let drivenActionRightScale = useTransform(
-    x,
-    inputX,
-    outputActionScaleRightAnswer
-  );
-  let drivenBg = useTransform(x, [-20, 0, 20], outputMainBgColor);
+  let drivenBg = useTransform(x, [-50, 0, 50], outputMainBgColor);
 
-  useMotionValueEvent(x, "change", (latest) => {
+  useMotionValueEvent(x, "change", () => {
     //@ts-ignore
-    setCardDrivenProps((state) => ({
-      ...state,
-      cardWrapperX: latest,
-      buttonScaleBadAnswer: drivenActionLeftScale,
-      buttonScaleGoodAnswer: drivenActionRightScale,
-      mainBgColor: drivenBg,
-    }));
+    setBackgroundColor(drivenBg);
   });
 
   return (
@@ -114,6 +95,10 @@ const FeedCard = ({
         dragConstraints={{ left: 0, right: 0 }}
         dragTransition={{ bounceStiffness: 1000, bounceDamping: 50 }}
         onDragStart={() => setIsDragging(true)}
+        onDrag={(_, info) => {
+          const direction = info.offset.x > 0 ? "right" : "left";
+          setDirection(direction);
+        }}
         onDragEnd={(_, info) => {
           setIsDragging(false);
           const isOffBoundary =
@@ -126,7 +111,7 @@ const FeedCard = ({
           }
         }}
         style={{ x }}
-      ></motion.div>
+      />
     </>
   );
 };

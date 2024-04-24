@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -9,25 +9,13 @@ import { DirectionType } from "@/types/common";
 import CreateFeed from "@/components/buttons/CreateFeedButton";
 import { AppContext } from "@/core/AppContext";
 
-const initialDrivenProps = {
-  cardWrapperX: 0,
-  buttonScaleBadAnswer: 1,
-  buttonScaleGoodAnswer: 1,
-  mainBgColor: themeColors.gameSwipe.neutral,
-};
-
 const FeedList = () => {
   const { feed } = useContext(AppContext);
   const [direction, setDirection] = useState<DirectionType | "">("");
-  const [cardDrivenProps, setCardDrivenProps] = useState(initialDrivenProps);
+  const [backgroundColor, setBackgroundColor] = useState(
+    themeColors.gameSwipe.neutral
+  );
   const [isDragging, setIsDragging] = useState(false);
-
-  useEffect(() => {
-    if (["left", "right"].includes(direction)) {
-    }
-
-    setDirection("");
-  }, [direction]);
 
   const cardVariants = {
     current: {
@@ -62,7 +50,7 @@ const FeedList = () => {
         className={`flex flex-1 p-5 flex-col justify-center items-center overflow-hidden  ${
           isDragging ? "cursor-grabbing" : ""
         }`}
-        style={{ backgroundColor: cardDrivenProps.mainBgColor }}
+        style={{ backgroundColor }}
       >
         <Background />
 
@@ -74,9 +62,8 @@ const FeedList = () => {
                 const isUpcoming = i === 1;
                 return (
                   <motion.div
-                    key={`card-${i}`}
-                    id={`card-${item.id}`}
-                    className={`relative `}
+                    key={item.id}
+                    className="relative"
                     variants={cardVariants}
                     initial="remainings"
                     animate={
@@ -90,9 +77,9 @@ const FeedList = () => {
                   >
                     <FeedCard
                       data={item}
-                      id={item.id}
-                      setCardDrivenProps={setCardDrivenProps}
+                      setBackgroundColor={setBackgroundColor}
                       setIsDragging={setIsDragging}
+                      setDirection={setDirection}
                       isDragging={isDragging}
                     />
                   </motion.div>
