@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction, useContext } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 
 import { useMediaQuery } from "usehooks-ts";
 
@@ -12,6 +12,7 @@ import {
 import { themeColors } from "@/core/theme";
 
 import { AppContext, IFeedItem } from "@/core/AppContext";
+import useToggle from "@/hooks/useToggle";
 
 type Props = {
   id?: string;
@@ -19,7 +20,6 @@ type Props = {
   setCardDrivenProps: Dispatch<SetStateAction<any>>;
   setIsDragging: Dispatch<SetStateAction<any>>;
   isDragging: boolean;
-  setIsDragOffBoundary: Dispatch<SetStateAction<any>>;
 };
 
 const FeedCard = ({
@@ -28,9 +28,8 @@ const FeedCard = ({
   setCardDrivenProps,
   setIsDragging,
   isDragging,
-  setIsDragOffBoundary,
 }: Props) => {
-  const [imgLoadingComplete, setImgLoadingComplete] = useState(false);
+  const [isImgLoaded, toggleImgLoaded] = useToggle();
   const { handleNextFeed } = useContext(AppContext);
 
   const { caption, imageSrc } = data;
@@ -81,7 +80,6 @@ const FeedCard = ({
   return (
     <>
       <motion.div
-        id={`cardDrivenWrapper-${id}`}
         className="absolute bg-white p-8 rounded-lg text-center w-full aspect-[100/150] pointer-events-none text-black origin-bottom shadow-card select-none"
         style={{
           y: drivenY,
@@ -89,30 +87,16 @@ const FeedCard = ({
           x: drivenX,
         }}
       >
-        <div
-          id="illustration"
-          className="w-full mx-auto max-w-[250px] aspect-square rounded-full relative"
-        >
-          <div
-            id="imgPlaceholder"
-            className="bg-gameSwipe-neutral absolute object-cover w-full h-full"
-            style={{
-              maskImage: `url('/images/placeholder.png')`,
-              WebkitMaskImage: `url(/images/placeholder.png)`,
-              maskSize: "contain",
-              WebkitMaskSize: "contain",
-              maskRepeat: "no-repeat",
-              WebkitMaskRepeat: "no-repeat",
-            }}
-          ></div>
+        <div className="w-full mx-auto max-w-[250px] aspect-square rounded-full relative">
           <img
             className={`absolute object-cover object-center ${
-              imgLoadingComplete ? "opacity-100" : "opacity-0"
+              isImgLoaded ? "opacity-100" : "opacity-0"
             } duration-500 ease-out`}
             src={imageSrc}
             sizes={`(max-width: 768px) 100vw, 250px`}
             alt="feed-outfit"
-            onLoad={(img) => setImgLoadingComplete(true)}
+            draggable="false"
+            onLoad={() => toggleImgLoaded(true)}
           />
         </div>
         <p id="affirmation" className="mt-2 text-[20px] leading-tight">
@@ -121,7 +105,6 @@ const FeedCard = ({
       </motion.div>
 
       <motion.div
-        id={`cardDriverWrapper-${id}`}
         className={`absolute w-full aspect-[100/150] ${
           !isDragging ? "hover:cursor-grab" : ""
         }`}
@@ -131,23 +114,12 @@ const FeedCard = ({
         dragConstraints={{ left: 0, right: 0 }}
         dragTransition={{ bounceStiffness: 1000, bounceDamping: 50 }}
         onDragStart={() => setIsDragging(true)}
-        onDrag={(_, info) => {
-          const offset = info.offset.x;
-
-          if (offset < 0 && offset < offsetBoundary * -1) {
-            setIsDragOffBoundary("left");
-          } else if (offset > 0 && offset > offsetBoundary) {
-            setIsDragOffBoundary("right");
-          } else {
-            setIsDragOffBoundary(null);
-          }
-        }}
         onDragEnd={(_, info) => {
           setIsDragging(false);
-          setIsDragOffBoundary(null);
           const isOffBoundary =
             info.offset.x > offsetBoundary || info.offset.x < -offsetBoundary;
           const direction = info.offset.x > 0 ? "right" : "left";
+          // api call with feed id and swipe direction to upvote / pass
 
           if (isOffBoundary) {
             handleNextFeed();

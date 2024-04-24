@@ -3,8 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Background from "@/components/common/Background/Background";
-import { themeColors, easeOutExpo } from "@/core/theme";
-// import FeedCardButton from "@/components/buttons/FeedCardButton";
+import { themeColors, easeOut } from "@/core/theme";
 import FeedCard from "@/components/cards/FeedCard";
 import { DirectionType } from "@/types/common";
 import CreateFeed from "@/components/buttons/CreateFeedButton";
@@ -20,14 +19,8 @@ const initialDrivenProps = {
 const FeedList = () => {
   const { feed } = useContext(AppContext);
   const [direction, setDirection] = useState<DirectionType | "">("");
-  const [isDragOffBoundary, setIsDragOffBoundary] =
-    useState<DirectionType | null>(null);
   const [cardDrivenProps, setCardDrivenProps] = useState(initialDrivenProps);
   const [isDragging, setIsDragging] = useState(false);
-
-  // const handleActionBtnOnClick = (btn: DirectionType) => {
-  //   setDirection(btn);
-  // };
 
   useEffect(() => {
     if (["left", "right"].includes(direction)) {
@@ -41,13 +34,13 @@ const FeedList = () => {
       opacity: 1,
       y: 0,
       scale: 1,
-      transition: { duration: 0.3, ease: easeOutExpo },
+      transition: { duration: 0.3, ease: easeOut },
     },
     upcoming: {
       opacity: 0.5,
       y: 67,
       scale: 0.9,
-      transition: { duration: 0.3, ease: easeOutExpo, delay: 0 },
+      transition: { duration: 0.3, ease: easeOut, delay: 0 },
     },
     remainings: {
       opacity: 0,
@@ -59,7 +52,7 @@ const FeedList = () => {
       x: direction === "left" ? -300 : 300,
       y: 40,
       rotate: direction === "left" ? -20 : 20,
-      transition: { duration: 0.3, ease: easeOutExpo },
+      transition: { duration: 0.3, ease: easeOut },
     },
   };
 
@@ -73,18 +66,12 @@ const FeedList = () => {
       >
         <Background />
 
-        <div
-          id="gameUIWrapper"
-          className="flex flex-col gap-6 w-full items-center justify-center relative z-10"
-        >
-          <div
-            id="cardsWrapper"
-            className="w-full aspect-[100/150] max-w-xs mb-[20px] relative z-10"
-          >
+        <div className="flex flex-col gap-6 w-full items-center justify-center relative z-10">
+          <div className="w-full aspect-[100/150] max-w-xs mb-[20px] relative z-10">
             <AnimatePresence>
               {feed.map((item, i) => {
                 const isLast = i === feed.length - 1;
-                const isUpcoming = i === feed.length - 2;
+                const isUpcoming = i === 1;
                 return (
                   <motion.div
                     key={`card-${i}`}
@@ -107,32 +94,12 @@ const FeedList = () => {
                       setCardDrivenProps={setCardDrivenProps}
                       setIsDragging={setIsDragging}
                       isDragging={isDragging}
-                      setIsDragOffBoundary={setIsDragOffBoundary}
                     />
                   </motion.div>
                 );
               })}
             </AnimatePresence>
           </div>
-          {/* <div
-          id="actions"
-          className="flex items-center justify-center w-full  gap-4 relative z-10"
-        >
-          <FeedCardButton
-            direction="left"
-            ariaLabel="swipe left"
-            scale={cardDrivenProps.buttonScaleBadAnswer}
-            isDragOffBoundary={isDragOffBoundary}
-            onClick={() => handleActionBtnOnClick("left")}
-          />
-          <FeedCardButton
-            direction="right"
-            ariaLabel="swipe right"
-            scale={cardDrivenProps.buttonScaleGoodAnswer}
-            isDragOffBoundary={isDragOffBoundary}
-            onClick={() => handleActionBtnOnClick("right")}
-          />
-        </div> */}
         </div>
       </motion.div>
       <CreateFeed />
