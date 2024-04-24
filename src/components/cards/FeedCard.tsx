@@ -80,9 +80,7 @@ const FeedCard = ({
             onLoad={() => toggleImgLoaded(true)}
           />
         </div>
-        <p id="affirmation" className="mt-2 text-[20px] leading-tight">
-          {caption}
-        </p>
+        <p className="mt-2 text-[20px] leading-tight">{caption}</p>
       </motion.div>
 
       <motion.div
