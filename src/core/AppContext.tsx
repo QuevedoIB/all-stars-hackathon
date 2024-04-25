@@ -1,5 +1,10 @@
 import { useState, useCallback, createContext, PropsWithChildren } from "react";
 
+import model1 from "/images/models/zara-model-1.jpg";
+import model2 from "/images/models/zara-model-2.jpg";
+import model3 from "/images/models/zara-model-3.jpg";
+import model4 from "/images/models/zara-model-4.jpg";
+
 export interface IUser {}
 
 export interface IFeedItem {
@@ -24,25 +29,25 @@ export const AppContext = createContext<IAppContext>(
 const sampleFeeds = [
   {
     id: "feed-1",
-    imageSrc: "/images/models/zara-model-1.jpg",
+    imageSrc: model1,
     title: "Elegant",
     caption: "Look at this georgeous dress for those special meetups!",
   },
   {
     id: "feed-2",
-    imageSrc: "/images/models/zara-model-2.jpg",
+    imageSrc: model2,
     title: "Summer vibes",
     caption: "Don't miss the opportunity to wear this cool clothers",
   },
   {
     id: "feed-3",
-    imageSrc: "/images/models/zara-model-3.jpg",
+    imageSrc: model3,
     title: "Amazing",
     caption: "Glad I found this combined clothes",
   },
   {
     id: "feed-4",
-    imageSrc: "/images/models/zara-model-4.jpg",
+    imageSrc: model4,
     title: "Adventure clothes",
     caption: "Testing out this amazing pants",
   },
