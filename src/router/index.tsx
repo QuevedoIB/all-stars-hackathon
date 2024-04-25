@@ -1,9 +1,9 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import Container from "@/components/common/Container";
 import FeedList from "@/components/lists/FeedList";
 import NotFoundPage from "@/components/common/NotFoundPage";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <Container />,
