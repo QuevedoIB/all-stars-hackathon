@@ -1,7 +1,8 @@
 import { createHashRouter } from "react-router-dom";
 import Container from "@/components/common/Container";
-import FeedList from "@/components/lists/FeedList";
 import NotFoundPage from "@/components/common/NotFoundPage";
+import AchievementsPage from "@/pages/AchievementsPage";
+import FeedsPage from "@/pages/FeedsPage";
 
 const router = createHashRouter([
   {
@@ -11,7 +12,11 @@ const router = createHashRouter([
     children: [
       {
         path: "/feed",
-        element: <FeedList />,
+        element: <FeedsPage />,
+      },
+      {
+        path: "/achievements",
+        element: <AchievementsPage />,
       },
     ],
   },
