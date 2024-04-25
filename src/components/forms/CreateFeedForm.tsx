@@ -27,10 +27,14 @@ const CreateFeedForm = ({ onClose }: { onClose: () => void }) => {
       }}
     >
       <div className="grid grid-cols-1 space-y-2">
-        <label className="text-sm font-bold text-gray-500 tracking-wide">
+        <label
+          htmlFor="title"
+          className="text-sm font-bold text-gray-500 tracking-wide"
+        >
           Title
         </label>
         <input
+          id="title"
           name="title"
           className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
           type=""
@@ -98,7 +102,7 @@ const CreateFeedForm = ({ onClose }: { onClose: () => void }) => {
         <textarea
           id="caption"
           rows={4}
-          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Write your thoughts here..."
         ></textarea>
       </div>
@@ -107,7 +111,7 @@ const CreateFeedForm = ({ onClose }: { onClose: () => void }) => {
         <button
           disabled={!isValidForm || isLoading}
           type="submit"
-          className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 disabled:bg-gray-300 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm min-w-24"
+          className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 disabled:bg-gray-300 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:border-indigo-500 sm:text-sm min-w-24"
         >
           {isLoading ? <Loader /> : "Upload"}
         </button>

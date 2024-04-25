@@ -47,7 +47,6 @@ const FeedList = () => {
   return (
     <>
       <motion.div
-        id="feedList0"
         className={`flex flex-1 p-5 flex-col justify-center items-center overflow-hidden  ${
           isDragging ? "cursor-grabbing" : ""
         }`}
@@ -55,21 +54,14 @@ const FeedList = () => {
       >
         <Background />
 
-        <div
-          id="feedList1"
-          className="flex flex-col gap-6 w-full items-center justify-center relative z-10"
-        >
-          <div
-            id="feedList2"
-            className="w-full aspect-[100/150] max-w-lg max-h-96 mb-[20px] relative z-10"
-          >
+        <div className="flex flex-col gap-6 w-full items-center justify-center relative z-10">
+          <div className="w-full aspect-[100/150] max-w-lg max-h-96 mb-[20px] relative z-10">
             <AnimatePresence>
               {feed.map((item, i) => {
                 const isLast = i === feed.length - 1;
                 const isUpcoming = i === 1;
                 return (
                   <motion.div
-                    id="feedList3"
                     key={item.id}
                     className="relative"
                     variants={cardVariants}

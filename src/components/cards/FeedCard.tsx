@@ -59,16 +59,9 @@ const FeedCard = ({
     setBackgroundColor(drivenBg);
   });
 
-  /*
-width: 100%;
-    display: flex;
-    justify-content: center;
-  */
-
   return (
     <>
       <motion.div
-        id="feedCard1"
         className="absolute bg-white p-8 rounded-lg w-full aspect-[100/150] pointer-events-none text-black origin-bottom shadow-card select-none max-w-lg max-h-96 "
         style={{
           y: drivenY,
@@ -76,7 +69,7 @@ width: 100%;
           x: drivenX,
         }}
       >
-        <div id="feedCard2" className="flex flex-col md:flex-row h-full w-full">
+        <div className="flex flex-col md:flex-row h-full w-full">
           <div className="aspect-square rounded-full relative mb-8 md:mb-0 w-full md:w-6/12 flex justify-center md:justify-between">
             <img
               className={`absolute h-full object-cover object-center ${
