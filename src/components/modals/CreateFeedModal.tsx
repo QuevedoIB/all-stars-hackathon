@@ -49,7 +49,7 @@ const CreateFeedModal = ({ onClose }: { onClose: () => void }) => {
               </svg>
             </button>
           </div>
-          <CreateFeedForm />
+          <CreateFeedForm onClose={onClose} />
         </div>
       </div>
     </div>

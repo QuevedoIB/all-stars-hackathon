@@ -13,12 +13,13 @@ import { themeColors } from "@/core/theme";
 
 import { AppContext, IFeedItem } from "@/core/AppContext";
 import useToggle from "@/hooks/useToggle";
+import { DirectionType } from "@/types/common";
 
 type Props = {
   data: IFeedItem;
   setBackgroundColor: Dispatch<SetStateAction<string>>;
   setIsDragging: Dispatch<SetStateAction<boolean>>;
-  setDirection: Dispatch<SetStateAction<string>>;
+  setDirection: Dispatch<SetStateAction<DirectionType | "">>;
   isDragging: boolean;
 };
 
@@ -68,19 +69,21 @@ const FeedCard = ({
           x: drivenX,
         }}
       >
-        <div className="w-full mx-auto max-w-[250px] aspect-square rounded-full relative">
-          <img
-            className={`absolute object-cover object-center ${
-              isImgLoaded ? "opacity-100" : "opacity-0"
-            } duration-500 ease-out`}
-            src={imageSrc}
-            sizes={`(max-width: 768px) 100vw, 250px`}
-            alt="feed-outfit"
-            draggable="false"
-            onLoad={() => toggleImgLoaded(true)}
-          />
+        <div>
+          <div className="w-full mx-auto max-w-[250px] aspect-square rounded-full relative">
+            <img
+              className={`absolute object-cover object-center ${
+                isImgLoaded ? "opacity-100" : "opacity-0"
+              } duration-500 ease-out`}
+              src={imageSrc}
+              sizes={`(max-width: 768px) 100vw, 250px`}
+              alt="feed-outfit"
+              draggable="false"
+              onLoad={() => toggleImgLoaded(true)}
+            />
+          </div>
+          <p className="mt-2 text-[20px] leading-tight">{caption}</p>
         </div>
-        <p className="mt-2 text-[20px] leading-tight">{caption}</p>
       </motion.div>
 
       <motion.div

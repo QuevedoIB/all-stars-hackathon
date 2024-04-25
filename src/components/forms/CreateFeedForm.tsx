@@ -1,14 +1,29 @@
 import useToggle from "@/hooks/useToggle";
+import { toast } from "react-toastify";
+import IconRocket from "@/assets/images/rocket.component.svg";
+import Loader from "@/components/common/Loader";
 
-const CreateFeedForm = () => {
+const CreateFeedForm = ({ onClose }: { onClose: () => void }) => {
   const [isValidForm, setIsValidForm] = useToggle();
+  const [isLoading, setIsLoading] = useToggle();
   return (
     <form
       className="mt-8 space-y-3"
       onSubmit={(e) => {
         e.preventDefault();
+        setIsLoading(true);
         const formData = new FormData(e.target as HTMLFormElement);
         // Upload data to service
+
+        setTimeout(() => {
+          toast.success(
+            <div className="flex">
+              <span className="mr-1">Feed created successfully!</span>
+              <IconRocket />
+            </div>
+          );
+          onClose();
+        }, 1000);
       }}
     >
       <div className="grid grid-cols-1 space-y-2">
@@ -90,11 +105,11 @@ const CreateFeedForm = () => {
 
       <div className="flex justify-end">
         <button
-          disabled={!isValidForm}
+          disabled={!isValidForm || isLoading}
           type="submit"
-          className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:w-auto sm:text-sm"
+          className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 disabled:bg-gray-300 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:text-sm min-w-24"
         >
-          Upload
+          {isLoading ? <Loader /> : "Upload"}
         </button>
       </div>
     </form>

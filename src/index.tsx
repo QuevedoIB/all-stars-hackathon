@@ -1,5 +1,7 @@
 import "./style.css";
+import "react-toastify/dist/ReactToastify.css";
 
+import { ToastContainer } from "react-toastify";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import AppContextProvider from "@/core/AppContext";
@@ -10,6 +12,7 @@ const App = () => {
   return (
     <AppContextProvider>
       <RouterProvider router={router} />
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </AppContextProvider>
   );
 };
