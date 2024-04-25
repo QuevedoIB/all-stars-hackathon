@@ -36,7 +36,7 @@ const outputMainBgColor = [
 ];
 
 const FeedCard = ({
-  data: { caption, imageSrc },
+  data: { title, caption, imageSrc },
   setBackgroundColor,
   setIsDragging,
   setDirection,
@@ -59,20 +59,27 @@ const FeedCard = ({
     setBackgroundColor(drivenBg);
   });
 
+  /*
+width: 100%;
+    display: flex;
+    justify-content: center;
+  */
+
   return (
     <>
       <motion.div
-        className="absolute bg-white p-8 rounded-lg text-center w-full aspect-[100/150] pointer-events-none text-black origin-bottom shadow-card select-none"
+        id="feedCard1"
+        className="absolute bg-white p-8 rounded-lg w-full aspect-[100/150] pointer-events-none text-black origin-bottom shadow-card select-none max-w-lg max-h-96 "
         style={{
           y: drivenY,
           rotate: drivenRotation,
           x: drivenX,
         }}
       >
-        <div>
-          <div className="w-full mx-auto max-w-[250px] aspect-square rounded-full relative">
+        <div id="feedCard2" className="flex flex-col md:flex-row h-full w-full">
+          <div className="aspect-square rounded-full relative mb-8 md:mb-0 w-full md:w-6/12 flex justify-center md:justify-between">
             <img
-              className={`absolute object-cover object-center ${
+              className={`absolute h-full object-cover object-center ${
                 isImgLoaded ? "opacity-100" : "opacity-0"
               } duration-500 ease-out`}
               src={imageSrc}
@@ -82,38 +89,22 @@ const FeedCard = ({
               onLoad={() => toggleImgLoaded(true)}
             />
           </div>
-          <p className="mt-2 text-[20px] leading-tight">{caption}</p>
-        </div>
-        {/* <div className="flex flex-col justify-center items-center bg-gray-100 min-h-screen">
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-lg w-full">
-            <img
-              src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606"
-              alt="Mountain"
-              className="w-full h-64 object-cover"
-            />
-            <div className="p-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                Beautiful Mountain View
-              </h2>
-              <p className="text-gray-700 leading-tight mb-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam
-                eu sapien porttitor, blandit velit ac, vehicula elit. Nunc et ex
-                at turpis rutrum viverra.
-              </p>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center">
-                  <img
-                    src="https://randomuser.me/api/portraits/men/32.jpg"
-                    alt="Avatar"
-                    className="w-8 h-8 rounded-full mr-2 object-cover"
-                  />
-                  <span className="text-gray-800 font-semibold">John Doe</span>
-                </div>
-                <span className="text-gray-600">2 hours ago</span>
+          <div className="flex flex-col flex-1">
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex items-center">
+                <img
+                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                  alt="Avatar"
+                  className="w-8 h-8 rounded-full mr-2 object-cover"
+                />
+                <span className="text-gray-800 font-semibold">John Doe</span>
               </div>
+              <span className="text-xs text-gray-600">2 hours ago</span>
             </div>
+            <h2 className="text-l font-bold text-gray-800 mb-2">{title}</h2>
+            <p className="text-sm leading-tight">{caption}</p>
           </div>
-        </div> */}
+        </div>
       </motion.div>
 
       <motion.div
