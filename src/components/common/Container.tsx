@@ -6,7 +6,7 @@ const Container = () => {
   return (
     <main className="min-h-screen h-full mx-auto flex flex-col bg-gameSwipe-neutral">
       <NavBar />
-      <section className="flex w-full h-full">
+      <section className="flex flex-col w-full h-full">
         <Outlet />
       </section>
       <Background />

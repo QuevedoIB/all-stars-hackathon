@@ -10,7 +10,7 @@ const AchievementsList = () => {
     handleObtainAchievement,
   } = useContext(AppContext);
   return (
-    <div className="flex flex-col justify-center items-center h-full w-full p-6">
+    <div className="flex flex-col items-center self-center p-6 mb-auto mt-12">
       <h1 className="mb-20 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
         <span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-blue-600">
           Monthly Rewards
