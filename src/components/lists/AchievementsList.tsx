@@ -1,53 +1,59 @@
 import { ProgressBar, Step } from "react-step-progress-bar";
+import { v4 as uuidv4 } from "uuid";
+import AchievementPrize from "@/components/cards/AchievementPrize";
 
-const achievements = [
+export interface IAchievement {
+  id: string;
+  title: string;
+  prize: string;
+  isObtained?: boolean;
+  value: number;
+}
+
+const achievements: IAchievement[] = [
   {
     id: "achievement-1",
-    title: "Achievement 1",
-    prize: "5% voucher",
+    title: "5% voucher",
+    prize: uuidv4(),
     isObtained: true,
     value: 1000,
   },
   {
     id: "achievement-2",
-    title: "Achievement 2",
-    prize: "10% voucher",
+    title: "10% voucher",
+    prize: uuidv4(),
     isObtained: false,
     value: 2500,
   },
   {
     id: "achievement-3",
-    title: "Achievement 3",
-    prize: "15% voucher",
+    title: "15% voucher",
+    prize: uuidv4(),
     isObtained: false,
     value: 5000,
   },
   {
     id: "achievement-4",
-    title: "Achievement 4",
-    prize: "20% voucher",
+    title: "20% voucher",
+    prize: uuidv4(),
     isObtained: false,
     value: 7500,
   },
   {
     id: "achievement-5",
-    title: "Achievement 5",
-    prize: "Monthly custom bracelet",
+    title: "Custom bracelet",
+    prize: uuidv4(),
     isObtained: false,
     value: 10000,
   },
 ];
 
-console.log(
-  achievements.map(({ value }) => (value / achievements.at(-1)?.value) * 100)
-);
-
 const AchievementsList = () => {
   return (
     <div className="flex flex-col justify-center items-center h-full w-full p-6">
-      <h1 class="mb-20 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-        <span class="text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-blue-600">
-          Rewards
+      <h1 className="mb-20 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-900 from-blue-600">
+          Monthly Rewards
         </span>
       </h1>
       <ul>
@@ -56,17 +62,17 @@ const AchievementsList = () => {
           filledBackground="linear-gradient(to right, #f9a8d4, #93c5fd)"
           className="w-40 h-10"
           stepPositions={achievements.map(
-            ({ value }) => (value / achievements.at(-1)?.value) * 100
+            ({ value }) => (value / achievements?.at(-1)?.value) * 100
           )}
           hasStepZero
           width="50rem"
           height="1rem"
         >
-          {achievements.map((achievement) => {
+          {achievements.map((achievement, i) => {
             return (
               <Step key={achievement.id} transition="scale">
                 {({ accomplished }: { accomplished: boolean }) => (
-                  <div id={achievement.id} className="mr-4">
+                  <li id={achievement.id}>
                     {achievement.isObtained ? (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -83,12 +89,18 @@ const AchievementsList = () => {
                       </svg>
                     ) : (
                       <div className="relative inline-flex  group">
-                        <div className="rounded-full animate-ping absolute -inset-px bg-gradient-to-r from-pink-600 to-blue-600 blur opacity-55 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                        {accomplished && (
+                          <div
+                            className={`rounded-full animate-ping absolute -inset-px bg-gradient-to-r from-pink-600 to-blue-600 blur opacity-55 group-hover:opacity-100 transition duration-1000 group-hover:duration-200`}
+                          />
+                        )}
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill={accomplished ? "#172554" : "#4b5563"}
-                          className="w-10 h-10 z-50 animate-bounce"
+                          className={`w-10 h-10 z-50 ${
+                            accomplished ? "animate-bounce" : ""
+                          }`}
                         >
                           <path
                             fillRule="evenodd"
@@ -98,18 +110,18 @@ const AchievementsList = () => {
                         </svg>
                       </div>
                     )}
-                  </div>
+                    {accomplished && (
+                      <AchievementPrize
+                        position={i % 2 === 0 ? "top" : "bottom"}
+                        achievement={achievement}
+                      />
+                    )}
+                  </li>
                 )}
               </Step>
             );
           })}
         </ProgressBar>
-        {/* {achievements.map(
-        (achievement, i) =>
-          i !== achievements.length - 1 && (
-            <Xarrow start={achievement.id} end={achievements[i + 1]?.id} />
-          )
-      )} */}
       </ul>
     </div>
   );
