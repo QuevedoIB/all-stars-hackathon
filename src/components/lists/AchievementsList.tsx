@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ProgressBar, Step } from "react-step-progress-bar";
 import AchievementPrize from "@/components/cards/AchievementPrize";
 import { AppContext } from "@/core/AppContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 const AchievementsList = () => {
   const {
@@ -77,10 +78,18 @@ const AchievementsList = () => {
                       </div>
                     )}
                     {accomplished && achievement.isObtained && (
-                      <AchievementPrize
-                        position={i % 2 === 0 ? "top" : "bottom"}
-                        achievement={achievement}
-                      />
+                      <AnimatePresence>
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.5 }}
+                        >
+                          <AchievementPrize
+                            position={i % 2 === 0 ? "top" : "bottom"}
+                            achievement={achievement}
+                          />
+                        </motion.div>
+                      </AnimatePresence>
                     )}
                   </li>
                 )}

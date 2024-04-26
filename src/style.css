@@ -22,3 +22,10 @@ html {
 button {
   --tw-ring-shadow: 0 0 #000 !important;
 }
+
+h2,
+h6,
+p,
+span {
+  user-select: none;
+}

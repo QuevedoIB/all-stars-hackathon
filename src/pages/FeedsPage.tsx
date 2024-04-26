@@ -1,11 +1,7 @@
 import FeedList from "@/components/lists/FeedList";
 
 const FeedsPage = () => {
-  return (
-    <section>
-      <FeedList />
-    </section>
-  );
+  return <FeedList />;
 };
 
 export default FeedsPage;
