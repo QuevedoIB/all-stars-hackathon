@@ -65,7 +65,7 @@ const AchievementsList = () => {
                             viewBox="0 0 24 24"
                             fill={accomplished ? "#172554" : "#4b5563"}
                             className={`w-10 h-10 z-50 ${
-                              accomplished ? "animate-bounce" : ""
+                              accomplished ? "scale-up-down" : ""
                             }`}
                           >
                             <path
