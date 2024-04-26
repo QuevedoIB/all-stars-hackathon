@@ -1,11 +1,14 @@
 import { useState, useCallback, createContext, PropsWithChildren } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import model1 from "/images/models/zara-model-1.jpg";
 import model2 from "/images/models/zara-model-2.jpg";
 import model3 from "/images/models/zara-model-3.jpg";
 import model4 from "/images/models/zara-model-4.jpg";
 
-export interface IUser {}
+export interface IUser {
+  achievements: IAchievement[];
+}
 
 export interface IFeedItem {
   id: string;
@@ -14,17 +17,58 @@ export interface IFeedItem {
   title?: string;
 }
 
+export interface IAchievement {
+  id: string;
+  title: string;
+  prize: string;
+  isObtained?: boolean;
+  value: number;
+}
+
+const achievements: IAchievement[] = [
+  {
+    id: "achievement-1",
+    title: "5% voucher",
+    prize: uuidv4(),
+    isObtained: true,
+    value: 1000,
+  },
+  {
+    id: "achievement-2",
+    title: "10% voucher",
+    prize: uuidv4(),
+    isObtained: false,
+    value: 2500,
+  },
+  {
+    id: "achievement-3",
+    title: "15% voucher",
+    prize: uuidv4(),
+    isObtained: false,
+    value: 5000,
+  },
+  {
+    id: "achievement-4",
+    title: "20% voucher",
+    prize: uuidv4(),
+    isObtained: false,
+    value: 7500,
+  },
+  {
+    id: "achievement-5",
+    title: "Custom bracelet",
+    prize: uuidv4(),
+    isObtained: false,
+    value: 10000,
+  },
+];
+
 interface IAppContext {
   user: IUser;
   feed: IFeedItem[];
   handleNextFeed: () => void;
+  handleObtainAchievement: (id: string) => void;
 }
-
-const initialStore = { user: {}, feed: [] };
-
-export const AppContext = createContext<IAppContext>(
-  initialStore as unknown as IAppContext
-);
 
 const sampleFeeds = [
   {
@@ -53,8 +97,10 @@ const sampleFeeds = [
   },
 ];
 
+export const AppContext = createContext<IAppContext>({});
+
 const AppContextProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({ achievements });
   const [feed, setFeed] = useState(sampleFeeds);
 
   const handleNextFeed = useCallback(() => {
@@ -70,8 +116,19 @@ const AppContextProvider = ({ children }: PropsWithChildren) => {
     });
   }, []);
 
+  const handleObtainAchievement = (achievementId: string) => {
+    setUser((curr) => ({
+      ...curr,
+      achievements: curr.achievements.map((e: IAchievement) =>
+        e.id === achievementId ? { ...e, isObtained: true } : e
+      ),
+    }));
+  };
+
   return (
-    <AppContext.Provider value={{ user, feed, handleNextFeed }}>
+    <AppContext.Provider
+      value={{ user, feed, handleNextFeed, handleObtainAchievement }}
+    >
       {children}
     </AppContext.Provider>
   );
