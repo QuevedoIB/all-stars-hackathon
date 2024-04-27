@@ -21,6 +21,7 @@
     "vite-plugin-svgr": "4.2.0"
   },
   "dependencies": {
+    "@fontsource/marck-script": "^5.0.20",
     "framer-motion": "^11.1.7",
     "react": "18.2",
     "react-dom": "18.2",

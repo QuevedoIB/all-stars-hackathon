@@ -1,6 +1,7 @@
 import "./style.css";
 import "react-toastify/dist/ReactToastify.css";
 import "react-step-progress-bar/styles.css";
+import "@fontsource/marck-script";
 
 import { ToastContainer } from "react-toastify";
 import { createRoot } from "react-dom/client";

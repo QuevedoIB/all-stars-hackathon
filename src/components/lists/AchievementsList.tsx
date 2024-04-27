@@ -24,7 +24,6 @@ const AchievementsList = () => {
           stepPositions={achievements.map(
             ({ value }) => (value / achievements?.at(-1)?.value) * 100
           )}
-          hasStepZero
           width="50rem"
           height="1rem"
         >

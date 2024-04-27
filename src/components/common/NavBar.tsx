@@ -25,11 +25,11 @@ const NavBar = () => {
         <div className="flex justify-end items-center relative">
           <div className="block">
             <div className="inline-flex items-center justify-evenly relative border rounded-full hover:shadow px-2 py-1 w-32">
-              <Link to="/feed">
+              <Link to="/all-stars/feed">
                 <IconRocket />
               </Link>
 
-              <Link to="/achievements">
+              <Link to="/all-stars/achievements">
                 <IconTrophy />
               </Link>
 

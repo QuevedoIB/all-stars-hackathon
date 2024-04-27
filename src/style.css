@@ -45,3 +45,7 @@ span {
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
+
+.home--container {
+  background-image: url("/images/home.png");
+}
