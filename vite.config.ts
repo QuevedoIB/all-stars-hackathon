@@ -5,7 +5,7 @@ import svgr from "vite-plugin-svgr";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/hackaton-playground/",
+  base: "/all-stars-hackaton/",
   plugins: [
     react(),
     svgr({
