@@ -1,4 +1,4 @@
-import homeCard from "@/assets/images/home-card.jpg";
+import homeCard from "/images/home-card.jpg";
 import { Link } from "react-router-dom";
 import "./HomeCard.css";
 
